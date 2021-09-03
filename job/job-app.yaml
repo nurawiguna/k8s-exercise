@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: nodejs-job
+  namespace: latihan
 spec:
   completions: 4
   parallelism: 2
@@ -10,4 +11,4 @@ spec:
       restartPolicy: Never
       containers:
         - name: nodejs-job
-          image: khannedy/nodejs-job
+          image: nurawiguna/nodejs-job
