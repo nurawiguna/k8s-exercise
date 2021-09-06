@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: deploy-multi
+  name: deploy-multi
+  namespace: latihan2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deploy-multi
+  template:
+    metadata:
+      labels:
+        app: deploy-multi
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        resources: 
+          requests:
+              memory: 100Mi
+              cpu: 100m
+          limits:
+              memory: 200Mi
+              cpu: 100m
+        ports:
+          - containerPort: 80
+      - image: redis
+        name: redis
+        resources: 
+          requests:
+              memory: 100Mi
+              cpu: 100m
+          limits:
+              memory: 200Mi
+              cpu: 100m
+        ports:
+          - containerPort: 6379
