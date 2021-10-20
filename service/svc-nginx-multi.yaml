@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-nginx-multi
+  namespace: lab-nura
+spec:
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      targetPort: 80
