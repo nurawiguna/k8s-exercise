@@ -36,19 +36,36 @@ spec:
 
 ---
 
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx-ingress
   labels:
     name: nginx-ingress
   namespace: lab-nura
+  annotations:
+    # use the shared ingress-nginx
+    kubernetes.io/ingress.class: "nginx"
+
+# spec:
+#   rules:
+#     - host: nginx.nurawiguna.local
+#       http:
+#         paths:
+#           - path: /
+#             backend:
+#               serviceName: svc-nginx-for-ingress
+#               servicePort: 80
+
 spec:
   rules:
-    - host: nginx.nurawiguna.local
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: svc-nginx-for-ingress
-              servicePort: 80
+  - host: nginx.nurawiguna.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-nginx-for-ingress
+            port:
+              number: 80
