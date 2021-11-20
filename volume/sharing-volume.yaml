@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-sharing
+  namespace: lab-nura
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: nginx-sharing
+  template:
+    metadata:
+      name: nginx-sharing
+      labels:
+        name: nginx-sharing
+    spec:
+      volumes:
+        - name: html
+          emptyDir: {}
+      containers:
+        - name: nodejs-writer
+          image: nurawiguna/nodejs-writer
+          volumeMounts:
+            - mountPath: /app/html
+              name: html
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: html
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-nginx-sharing
+  namespace: lab-nura
+spec:
+  type: NodePort
+  selector:
+    name: nginx-sharing
+  ports:
+    - port: 8080
+      targetPort: 80
+      nodePort: 30001
