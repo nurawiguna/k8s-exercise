@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodejs-writer-env
+  name: nodejs-writer-env
+  namespace: lab-nura
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nodejs-writer-env
+  template:
+    metadata:
+      labels:
+        app: nodejs-writer-env
+    spec:
+      volumes:
+        - name: html
+          emptyDir: {}
+      containers:
+        - name: nodejs-writer
+          image: nurawiguna/nodejs-writer
+          volumeMounts:
+            - mountPath: /app/folder-from-env
+              name: html
+          env:
+            - name: HTML_LOCATION
+              value: /app/folder-from-env
+          resources:
+                requests:
+                  memory: 300Mi
+                  cpu: 300m
+                limits:
+                  memory: 500Mi
+                  cpu: 500m
