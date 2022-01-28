@@ -12,18 +12,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: nodejs-env
+    name: nodejs-env
   name: nodejs-env
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: nodejs-env
+      name: nodejs-env
   strategy: {}
   template:
     metadata:
       labels:
-        app: nodejs-env
+        name: nodejs-env
     spec:
       containers:
       - image: nurawiguna/nodejs-env:1.0
