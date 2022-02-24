@@ -19,6 +19,13 @@ spec:
           image: nurawiguna/nodejs-web:1.0
           ports:
             - containerPort: 3000
+          resources: 
+              requests:
+                  memory: 100Mi
+                  cpu: 100m
+              limits:
+                  memory: 200Mi
+                  cpu: 200m
 
 ---
 
@@ -54,7 +61,7 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 75
+          averageUtilization: 70
     - type: Resource
       resource:
         name: memory
