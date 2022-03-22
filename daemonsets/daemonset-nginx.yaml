@@ -4,7 +4,7 @@ metadata:
   name: daemon-nginx
   labels:
     name: daemon-nginx
-  namespace: nura-dev
+  namespace: lab-nura
 spec:
   selector:
     matchLabels:
