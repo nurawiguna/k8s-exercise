@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-env
+  labels:
+    name: nodejs-env
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: nodejs-env
+  template:
+    metadata:
+      name: nodejs-env
+      labels:
+        name: nodejs-env
+  spec:
+      containers:
+        - name: nodejs-env
+          image: nurawiguna/nodejs-env:1.0
+          ports:
+            - containerPort: 3000

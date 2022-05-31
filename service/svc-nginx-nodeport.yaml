@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-for-svc-node-port
+  namespace: lab-nura
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: nginx-for-svc-node-port
+  template:
+    metadata:
+      name: nginx-for-svc-node-port
+      labels:
+        name: nginx-for-svc-node-port
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-nginx
+  namespace: lab-nura
+spec:
+  type: NodePort
+  selector:
+    name: nginx-for-svc-node-port
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30001

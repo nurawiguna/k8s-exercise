@@ -5,7 +5,7 @@ metadata:
   namespace: lab-nura
 spec:
   selector:
-    app: deploy-multi
+    app: nginx
   ports:
     - port: 80
       targetPort: 80
